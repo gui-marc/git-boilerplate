@@ -9,7 +9,7 @@ The Git Boilerplate CLI Tool is a command-line interface for creating new projec
 To install Git Boilerplate from source, first make sure you have Go installed on your system. Then run the following command:
 
 ```
-$ go get github.com/gui_marc/git-boilerplate
+$ go get github.com/gui-marc/git-boilerplate
 ```
 
 This will download the source code and install the `git-boilerplate` binary in your `$GOPATH/bin` directory.
@@ -19,7 +19,7 @@ This will download the source code and install the `git-boilerplate` binary in y
 You can also install Git Boilerplate using the following command:
 
 ```
-$ curl -sSf https://raw.githubusercontent.com/gui_marc/git-boilerplate/main/install.sh | sh
+$ curl -sSf https://raw.githubusercontent.com/gui-marc/git-boilerplate/main/install.sh | sh
 ```
 
 This command will download the latest release of Git Boilerplate and install it in `/usr/local/bin`.

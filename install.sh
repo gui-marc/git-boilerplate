@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Determine the latest release version
-VERSION=$(curl -s https://api.github.com/repos/gui_marc/git-boilerplate/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')
+VERSION=$(curl -s https://api.github.com/repos/gui-marc/git-boilerplate/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')
 
 # Determine the operating system and architecture
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
@@ -18,7 +18,7 @@ elif [ "${OS}" == "linux" ]; then
 fi
 
 # Download and install the binary file
-curl -L -o /usr/local/bin/git-boilerplate https://github.com/gui_marc/git-boilerplate/releases/download/${VERSION}/git-boilerplate_${OS}_${ARCH}
+curl -L -o /usr/local/bin/git-boilerplate https://github.com/gui-marc/git-boilerplate/releases/download/${VERSION}/git-boilerplate_${OS}_${ARCH}
 
 chmod +x /usr/local/bin/git-boilerplate
 
