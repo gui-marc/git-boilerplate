@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env sh
+
+set -eu
+printf '\n'
 
 # Determine the latest release version
 VERSION=$(curl -s https://api.github.com/repos/gui-marc/git-boilerplate/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')
@@ -16,6 +19,8 @@ elif [ "${OS}" == "linux" ]; then
         ARCH="arm64"
     fi
 fi
+
+echo https://github.com/gui-marc/git-boilerplate/releases/download/${VERSION}/git-boilerplate-${OS}-${ARCH}
 
 # Download and install the binary file
 curl -L -o /usr/local/bin/git-boilerplate https://github.com/gui-marc/git-boilerplate/releases/download/${VERSION}/git-boilerplate-${OS}-${ARCH}
