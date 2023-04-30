@@ -18,7 +18,7 @@ elif [ "${OS}" == "linux" ]; then
 fi
 
 # Download and install the binary file
-curl -L -o /usr/local/bin/git-boilerplate https://github.com/gui-marc/git-boilerplate/releases/download/${VERSION}/git-boilerplate_${OS}_${ARCH}
+curl -L -o /usr/local/bin/git-boilerplate https://github.com/gui-marc/git-boilerplate/releases/download/${VERSION}/git-boilerplate-${OS}-${ARCH}
 
 chmod +x /usr/local/bin/git-boilerplate
 
