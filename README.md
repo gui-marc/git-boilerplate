@@ -1,4 +1,4 @@
-![Git-Boilerplate](/imgs/cover.png)
+![Git-Boilerplate](/imgs/cover-hd.png)
 
 # Git Boilerplate CLI Tool
 
