@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"git-boilerplate/utils"
+	"github.com/gui-marc/git-boilerplate/utils"
 )
 
 func main() {
