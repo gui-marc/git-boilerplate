@@ -1,3 +1,5 @@
+![Git-Boilerplate](/imgs/cover.png)
+
 # Git Boilerplate CLI Tool
 
 The Git Boilerplate CLI Tool is a command-line interface for creating new projects from a GitHub repository template. This tool provides a simple way to automate the process of setting up new projects by cloning a repository template and customizing it with your own content.
