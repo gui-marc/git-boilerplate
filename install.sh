@@ -22,9 +22,15 @@ fi
 
 echo https://github.com/gui-marc/git-boilerplate/releases/download/${VERSION}/git-boilerplate-${OS}-${ARCH}
 
+rm -rf ~/.git-boilerplate
+mkdir ~/.git-boilerplate
+
 # Download and install the binary file
-curl -L -o /usr/local/bin/git-boilerplate https://github.com/gui-marc/git-boilerplate/releases/download/${VERSION}/git-boilerplate-${OS}-${ARCH}
+curl -L -o ~/.git-boilerplate/git-boilerplate https://github.com/gui-marc/git-boilerplate/releases/download/${VERSION}/git-boilerplate-${OS}-${ARCH}
 
-chmod +x /usr/local/bin/git-boilerplate
+chmod +x ~/.git-boilerplate/git-boilerplate
 
-echo "git-boilerplate has been installed to /usr/local/bin"
+echo "git-boilerplate has been installed to ~/.git-boilerplate"
+
+# Write the path to the .bashrc file
+echo "PATH=$PATH:$HOME/.git-boilerplate" >> ~/.bashrc

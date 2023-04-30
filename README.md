@@ -6,6 +6,10 @@ The Git Boilerplate CLI Tool is a command-line interface for creating new projec
 
 ## Installation
 
+<!--
+
+Currently not working
+
 ### From Source
 
 To install Git Boilerplate from source, first make sure you have Go installed on your system. Then run the following command:
@@ -16,22 +20,38 @@ $ go get github.com/gui-marc/git-boilerplate
 
 This will download the source code and install the `git-boilerplate` binary in your `$GOPATH/bin` directory.
 
+-->
+
 ### Using curl
 
 You can also install Git Boilerplate using the following command:
 
-```
-$ curl -sSf https://raw.githubusercontent.com/gui-marc/git-boilerplate/main/install.sh | sh
+```bash
+curl -sSf https://raw.githubusercontent.com/gui-marc/git-boilerplate/main/install.sh | sh
 ```
 
-This command will download the latest release of Git Boilerplate and install it in `/usr/local/bin`.
+This command will download the latest release of Git Boilerplate and install it in `~/.git-boilerplate`.
+
+### Adding to path
+
+If you installed Git Boilerplate using the `curl` command above, you will need to add the `~/.git-boilerplate` directory to your `$PATH` environment variable. To do this, add the following line to your `.bashrc` or `.zshrc` file:
+
+```bash
+export PATH=$PATH:$HOME/.git-boilerplate
+```
+
+If you use the fish shell, just run the following command:
+
+```bash
+set -gx PATH "$HOME/.git-boilerplate" $PATH;
+```
 
 ## Usage
 
 To use Git Boilerplate, simply run the following command:
 
-```
-$ git-boilerplate <template-repo> <project-name>
+```bash
+git-boilerplate <template-repo> <project-name>
 ```
 
 Replace `<template-repo>` with the URL of the GitHub repository template you want to use, and `<project-name>` with the name of the project you want to create.
