@@ -14,57 +14,79 @@ func main() {
 	utils.Clear()
 
 	if len(os.Args) < 3 {
-		utils.Error("Error: invalid arguments\n")
-		utils.Info("Usage: git-boilerplate <template-repo> <project-name>")
+		utils.Error("Invalid arguments")
+		utils.Info("Usage: git-boilerplate <template-url> <project-name>")
 		return
 	}
 
-	templateRepo := os.Args[1]
+	templateURL := os.Args[1]
 	projectName := os.Args[2]
 
-	utils.Loading("Cloning template repository...\n")
-	output, err := exec.Command("git", "clone", "--depth=1", "--branch=main", templateRepo, ".git-template").CombinedOutput()
+	utils.Loading("Cloning template repository...")
+	output, err := exec.Command("git", "clone", "--depth=1", "--branch=main", templateURL, ".git-boilerplate-temp").CombinedOutput()
+
 	if err != nil {
-		utils.Error(fmt.Sprintf("Error cloning template repository: %v\n%s", err, output))
+		utils.Error("Error cloning template repository")
+		fmt.Printf("%v\n%s\n", err, string(output))
 		return
 	}
 
-	utils.Info(fmt.Sprintf("Creating project directory %s...\n", projectName))
-	err = os.Mkdir(projectName, os.ModePerm)
+	utils.Success("Template repository cloned successfully")
+	utils.Loading("Removing .git directory...")
+
+	err = os.RemoveAll(".git-boilerplate-temp/.git")
+
 	if err != nil {
-		utils.Error(fmt.Sprintf("Error creating project directory: %v\n", err))
+		utils.Error("Error removing .git directory")
 		return
 	}
 
-	utils.Info("Copying template contents to project directory...")
-	copyDir(".git-template", projectName)
+	utils.Success(".git directory removed successfully")
 
-	utils.Info("Initializing new Git repository...")
-	err = os.RemoveAll(fmt.Sprintf("%s/.git", projectName))
+	utils.Loading("Copying to new folder...")
+
+	err = copyDir(".git-boilerplate-temp", projectName, projectName)
+
 	if err != nil {
-		utils.Error(fmt.Sprintf("Error removing .git folder: %v\n", err))
+		utils.Error("Error copying files")
 		return
 	}
 
-	_, err = exec.Command("git", "init", projectName).CombinedOutput()
+	utils.Success("Files copied successfully")
+
+	utils.Loading("Removing temporary directory...")
+
+	err = os.RemoveAll(".git-boilerplate-temp")
+
 	if err != nil {
-		utils.Error(fmt.Sprintf("Error initializing new Git repository: %v\n", err))
+		utils.Error("Error removing temporary directory")
 		return
 	}
 
-	utils.Info("Removing template directory...")
-	err = os.RemoveAll(".git-template")
+	utils.Success("Temporary directory removed successfully")
+
+	utils.Loading("Initializing git repository...")
+
+	output, err = exec.Command("git", "init", projectName).CombinedOutput()
+
 	if err != nil {
-		utils.Error(fmt.Sprintf("Error removing template directory: %v\n", err))
+		utils.Error("Error initializing git repository")
+		fmt.Printf("%v\n%s\n", err, string(output))
 		return
 	}
 
-	utils.Success("Done!")
+	utils.Success("Git repository initialized successfully")
+
+	utils.Clear()
+
+	utils.Success("Project created successfully 🎉\n")
+	utils.Info("To start working on your project, run the following command:")
+	utils.Info(fmt.Sprintf("cd %s", projectName))
 }
 
-func copyDir(src string, dest string) error {
+func copyDir(src string, dest string, projectName string) error {
 	// Read source directory
-	files, err := ioutil.ReadDir(src)
+	files, err := ioutil.ReadDir(fmt.Sprintf("./%s", src))
 	if err != nil {
 		return err
 	}
@@ -81,7 +103,7 @@ func copyDir(src string, dest string) error {
 		destFile := dest + "/" + file.Name()
 
 		if file.IsDir() {
-			err = copyDir(srcFile, destFile)
+			err = copyDir(srcFile, destFile, projectName)
 			if err != nil {
 				return err
 			}
@@ -92,7 +114,7 @@ func copyDir(src string, dest string) error {
 			}
 
 			// Replace template variables with project-specific values
-			contentStr := strings.Replace(string(content), "{{project-name}}", dest, -1)
+			contentStr := strings.Replace(string(content), "{{project-name}}", projectName, -1)
 
 			err = ioutil.WriteFile(destFile, []byte(contentStr), file.Mode())
 			if err != nil {

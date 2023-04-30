@@ -21,11 +21,11 @@ const (
 )
 
 func Print(text string, color int) {
-	fmt.Printf("\033[%dm%s\033[0m", color, text)
+	fmt.Printf("\033[%dm%s\033[0m\n", color, text)
 }
 
 func PrintStyled(text string, color int, style int) {
-	fmt.Printf("\033[%d;%dm%s\033[0m", style, color, text)
+	fmt.Printf("\033[%d;%dm%s\033[0m\n", style, color, text)
 }
 
 func Error(text string) {
@@ -41,7 +41,7 @@ func Info(text string) {
 }
 
 func Loading(text string) {
-	PrintStyled(text, Blue, Blinking)
+	PrintStyled(text, Yellow, Blinking)
 }
 
 func Clear() {
